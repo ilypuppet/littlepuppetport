@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puppet | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #4a0d1f 0%, #120309 60%, #020617 100%);
+  color: #e5e7eb;
+  overflow-x: hidden;
+}
+
+/* CANVAS BACKGROUND */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+/* CONTEÚDO */
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.profile img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #38bdf8;
+  margin-bottom: 20px;
+}
+
+.profile p {
+  max-width: 500px;
+  margin: auto;
+  color: #cbd5f5;
+}
+
+/* DISCORD */
+.discord {
+  display: inline-block;
+  margin-top: 40px;
+  position: relative;
+}
+
+.discord img {
+  width: 320px;
+  border-radius: 16px;
+  border: 4px solid #5865F2;
+}
+
+.discord .icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 42px;
+  height: 42px;
+  background: #5865F2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+footer {
+  background: #020617;
+  padding: 20px;
+  text-align: center;
+  color: #94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CANVAS ANIMADO -->
+<canvas id="bg"></canvas>
+
+<section class="profile">
+  <img src="https://i.imgur.com/jcClzjV.jpeg">
+  <h1>Puppet</h1>
+  <p>
+    Olá me chamo Puppet, tenho 18 anos, desenvolvo bots quando estou com tédio
+    e curto jogos como Roblox e Valorant.
+  </p>
+</section>
+
+<section>
+  <a href="https://discord.com/users/1349553573242994762" target="_blank" class="discord">
+    <img src="https://i.imgur.com/fI7SBps.png">
+    <div class="icon">
+      <i class="fab fa-discord"></i>
+    </div>
+  </a>
+</section>
+
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const colors = ["#38bdf8", "#8b5cf6", "#5865F2"];
+const particles = [];
+
+for (let i = 0; i < 150; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 1,
+    s: Math.random() * 0.6 + 0.2,
+    c: colors[Math.floor(Math.random() * colors.length)]
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.y -= p.s;
+    if (p.y < 0) p.y = canvas.height;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.c;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
